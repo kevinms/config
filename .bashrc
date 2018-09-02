@@ -24,7 +24,7 @@ complete -cf man
 
 export EDITOR=vim
 
-WWW_HOME='~/doc/search.html'
+WWW_HOME='~/dev/config/search.html'
 export WWW_HOME
 alias lynx='lynx -accept_all_cookies -nopause -use_mouse'
 export CSCOPE_EDITOR=vim
