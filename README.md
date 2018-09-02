@@ -5,7 +5,7 @@
 
 ```
 git clone git://github.com/kevinms/config.git
-ln -s $(realpath config/.vimrc) ~/.vimrc
+./config/setup.sh
 ```
 
 ## Vim Plugins
