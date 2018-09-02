@@ -4,7 +4,7 @@
 
 
 ```
-git clone git://github.com/kevinms/config.git
+git clone git@github.com:kevinms/config.git
 ./config/setup.sh
 ```
 
