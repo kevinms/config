@@ -2,27 +2,46 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
+must_not_exist() {
+	if [ -f $1 ]; then
+		echo "$1 already exists?!"
+		exit 1
+	fi
+}
+
+must_not_exist ~/.vimrc
+must_not_exist ~/.tmux.conf
+
 ln -s $(realpath $DIR/.vimrc) ~/.vimrc
 ln -s $(realpath $DIR/.tmux.conf) ~/.tmux.conf
 
-if [ ! -d "~/.vim/autoload/pathogen.vim" ]; then
+ls -lash ~/.vimrc ~/.tmux.conf
+
+v=~/.vim/bundle
+
+plugin=~/.vim/autoload/pathogen.vim
+if [ ! -d $plugin ]; then
 	mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+	curl -LSso $plugin https://tpo.pe/pathogen.vim
 fi
 
-if [ ! -d "~/.vim/bundle/ctrlp.vim" ]; then
-	git clone https://github.com/kien/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
+plugin=~/.vim/bundle/ctrlp.vim
+if [ ! -d $plugin ]; then
+	git clone https://github.com/kien/ctrlp.vim.git $plugin
 fi
 
-if [ ! -d "~/.vim/bundle/vim-sneak" ]; then
-	git clone git://github.com/justinmk/vim-sneak.git ~/.vim/bundle/vim-sneak
+plugin=~/.vim/bundle/ctrlp.vim
+if [ ! -d $plugin ]; then
+	git clone git://github.com/justinmk/vim-sneak.git $plugin
 fi
 
-if [ ! -d "~/.vim/bundle/taby.vim" ]; then
-	git clone git://github.com/kevinms/taby.vim.git ~/.vim/bundle/taby.vim
+plugin=~/.vim/bundle/taby.vim
+if [ ! -d $plugin ]; then
+	git clone git://github.com/kevinms/taby.vim.git $plugin
 fi
 
-if [ ! -d "~/.vim/bundle/vim-eunuch" ]; then
-	git clone https://github.com/tpope/vim-eunuch.git ~/.vim/bundle/vim-eunuch
+plugin=~/.vim/bundle/vim-eunuch
+if [ ! -d $plugin ]; then
+	git clone https://github.com/tpope/vim-eunuch.git $plugin
 fi
 
