@@ -17,8 +17,6 @@ ln -s $(realpath $DIR/.tmux.conf) ~/.tmux.conf
 
 ls -lash ~/.vimrc ~/.tmux.conf
 
-v=~/.vim/bundle
-
 plugin=~/.vim/autoload/pathogen.vim
 if [ ! -d $plugin ]; then
 	mkdir -p ~/.vim/autoload ~/.vim/bundle && \
