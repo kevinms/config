@@ -2,6 +2,39 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
+print_help() {
+	echo "$0 [-f|--force] [-h|--help]"
+	exit 1
+}
+
+while [[ "$#" > 0 ]]; do
+	case $1 in
+		-f|--force) force=1;;
+		-h|--help) print_help;;
+		*) echo "Unknown parameter passed: $1"; exit 1;;
+	esac
+	shift;
+done
+
+must_not_exist() {
+	if [ -f $1 ]; then
+		if (($force)); then
+			rm -f $1
+			return
+		fi
+		echo "$1 already exists?!"
+		exit 1
+	fi
+}
+
+must_not_exist ~/.vimrc
+must_not_exist ~/.tmux.conf
+
+ln -s $(realpath $DIR/.vimrc) ~/.vimrc
+ln -s $(realpath $DIR/.tmux.conf) ~/.tmux.conf
+
+ls -lash ~/.vimrc ~/.tmux.conf
+
 plugin=~/.vim/autoload/pathogen.vim
 if [ ! -d $plugin ]; then
 	mkdir -p ~/.vim/autoload ~/.vim/bundle && \
@@ -37,19 +70,3 @@ plugin=~/.vim/bundle/limelight.vim
 if [ ! -d $plugin ]; then
 	git clone https://github.com/junegunn/limelight.vim.git $plugin
 fi
-
-must_not_exist() {
-	if [ -f $1 ]; then
-		echo "$1 already exists?!"
-		exit 1
-	fi
-}
-
-must_not_exist ~/.vimrc
-must_not_exist ~/.tmux.conf
-
-ln -s $(realpath $DIR/.vimrc) ~/.vimrc
-ln -s $(realpath $DIR/.tmux.conf) ~/.tmux.conf
-
-ls -lash ~/.vimrc ~/.tmux.conf
-
