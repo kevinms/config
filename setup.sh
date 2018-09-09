@@ -41,32 +41,15 @@ if [ ! -d $plugin ]; then
 	curl -LSso $plugin https://tpo.pe/pathogen.vim
 fi
 
-plugin=~/.vim/bundle/ctrlp.vim
-if [ ! -d $plugin ]; then
-	git clone https://github.com/kien/ctrlp.vim.git $plugin
-fi
+clone() {
+	if [ ! -d $2 ]; then
+		git clone $1 $2
+	fi
+}
 
-plugin=~/.vim/bundle/vim-sneak
-if [ ! -d $plugin ]; then
-	git clone git://github.com/justinmk/vim-sneak.git $plugin
-fi
-
-plugin=~/.vim/bundle/taby.vim
-if [ ! -d $plugin ]; then
-	git clone git://github.com/kevinms/taby.vim.git $plugin
-fi
-
-plugin=~/.vim/bundle/vim-eunuch
-if [ ! -d $plugin ]; then
-	git clone https://github.com/tpope/vim-eunuch.git $plugin
-fi
-
-plugin=~/.vim/bundle/goyo.vim
-if [ ! -d $plugin ]; then
-	git clone https://github.com/junegunn/goyo.vim.git $plugin
-fi
-
-plugin=~/.vim/bundle/limelight.vim
-if [ ! -d $plugin ]; then
-	git clone https://github.com/junegunn/limelight.vim.git $plugin
-fi
+clone https://github.com/kien/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
+clone git://github.com/justinmk/vim-sneak.git ~/.vim/bundle/vim-sneak
+clone git://github.com/kevinms/taby.vim.git ~/.vim/bundle/taby.vim
+clone https://github.com/tpope/vim-eunuch.git ~/.vim/bundle/vim-eunuch
+clone https://github.com/junegunn/goyo.vim.git ~/.vim/bundle/goyo.vim
+clone https://github.com/junegunn/limelight.vim.git ~/.vim/bundle/limelight.vim
