@@ -35,6 +35,11 @@ ln -s $(realpath $DIR/.tmux.conf) ~/.tmux.conf
 
 ls -lash ~/.vimrc ~/.tmux.conf
 
+# Install custom xfce4-terminal theme.
+mkdir -p ~/.local/share/xfce4/terminal/colorschemes
+cp $(realpath $DIR/xfce4-colorscheme.theme) \
+	~/.local/share/xfce4/terminal/colorschemes
+
 plugin=~/.vim/autoload/pathogen.vim
 if [ ! -d $plugin ]; then
 	mkdir -p ~/.vim/autoload ~/.vim/bundle && \
