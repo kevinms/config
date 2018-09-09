@@ -192,8 +192,12 @@ if has("cscope")
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc Settings
+" => Writing Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable Goyo/Limelight
+map <leader>g :Goyo<cr>
+map <leader>l :Limelight!!<cr>
 
 function! s:goyo_enter()
   silent !tmux set status off
@@ -201,8 +205,10 @@ function! s:goyo_enter()
   set noshowmode
   set noshowcmd
   set scrolloff=999
+  let g:limelight_conceal_ctermfg = 240
+  set t_Co=256
   Limelight
-  " ...
+  set wrap linebreak nolist
 endfunction
 
 function! s:goyo_leave()
@@ -212,7 +218,7 @@ function! s:goyo_leave()
   set showcmd
   set scrolloff=5
   Limelight!
-  " ...
+  set t_Co=8
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
