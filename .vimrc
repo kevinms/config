@@ -12,7 +12,11 @@ filetype indent on
 
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
-"set nocompatible
+set nocompatible
+
+" Leader key
+"nnoremap <SPACE> <Nop>
+"let mapleader=' '
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -27,24 +31,27 @@ set ruler
 " Display incomplete commands.
 set showcmd
 
-" Don't do incremental searching.
-set noincsearch
-
-" Highlight search matches.
+" Searching
+set incsearch
 set hlsearch
+set ignorecase
+set smartcase
 
 " Show line numbers.
 set nonumber
 "set relativenumber
 
-" Ignore case when searching.
-"set ignorecase
-"set smartcase
-
 " Toggle paste mode on and off.
-map <leader>pp :setlocal paste!<cr>
+map <leader>p :setlocal paste!<cr>
 
-"set mouse=a
+" lightline.vim config
+"let g:lightline = {'colorscheme': 'wombat'}
+
+" Move cursor by dipslay lines when wrapping
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
+xnoremap <expr> j v:count ? 'j' : 'gj'
+xnoremap <expr> k v:count ? 'k' : 'gk'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
@@ -65,6 +72,7 @@ syntax on
 
 colorscheme elflord
 set t_Co=8
+"set t_Co=256
 
 set background=dark
 
@@ -110,15 +118,15 @@ set nolist
 vnoremap > >gv
 vnoremap <lt> <lt>gv
 
-" Pressing ,ss will toggle and untoggle spell checking.
-map <leader>ss :setlocal spell!<cr>
+" Toggle and untoggle spell checking.
+map <leader>s :setlocal spell!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Mapping to edit vimrc
-nmap <Leader>v :tabedit $MYVIMRC<CR>
+nmap <Leader>v :edit $MYVIMRC<CR>
 
 " Open a Quickfix window for the last search.
 nnoremap <silent> <Leader>q :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
@@ -182,6 +190,33 @@ if has("cscope")
 	endfunction
 	au BufEnter /* call LoadCscope()
 endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc Settings

@@ -28,6 +28,16 @@ if [ ! -d $plugin ]; then
 	git clone https://github.com/tpope/vim-eunuch.git $plugin
 fi
 
+plugin=~/.vim/bundle/goyo.vim
+if [ ! -d $plugin ]; then
+	git clone https://github.com/junegunn/goyo.vim.git $plugin
+fi
+
+plugin=~/.vim/bundle/limelight.vim
+if [ ! -d $plugin ]; then
+	git clone https://github.com/junegunn/limelight.vim.git $plugin
+fi
+
 must_not_exist() {
 	if [ -f $1 ]; then
 		echo "$1 already exists?!"
