@@ -23,13 +23,18 @@ complete -cf sudo
 complete -cf man
 
 export EDITOR=vim
+export CSCOPE_EDITOR=vim
 
 WWW_HOME='~/dev/config/search.html'
 export WWW_HOME
 alias lynx='lynx -accept_all_cookies -nopause -use_mouse'
-export CSCOPE_EDITOR=vim
 
 alias duck='ssh <user>@<hostname>'
 alias debris='ssh <user>@<hostname>'
+alias staging='ssh <user>@<hostname>'
+
+if [ $DISPLAY ]; then
+	xset r rate 200 25
+fi
 
 alias twirl='twirl=(":|" ":/" ":-" ":\\"); echo; while ((1)); do for ((i = 0; i < ${#twirl[@]}; i++)); do echo -ne "\r  ${twirl[$i]}  "; sleep .1; done; done'
