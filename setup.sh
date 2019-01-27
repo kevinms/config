@@ -53,3 +53,4 @@ clone git://github.com/kevinms/taby.vim.git ~/.vim/bundle/taby.vim
 clone https://github.com/tpope/vim-eunuch.git ~/.vim/bundle/vim-eunuch
 clone https://github.com/junegunn/goyo.vim.git ~/.vim/bundle/goyo.vim
 clone https://github.com/junegunn/limelight.vim.git ~/.vim/bundle/limelight.vim
+clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
