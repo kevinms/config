@@ -229,6 +229,9 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " => Misc Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
 " Write file with super user permissions
 "command! SudoWrite w !sudo tee > /dev/null %
 
