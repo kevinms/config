@@ -38,8 +38,8 @@ set ignorecase
 set smartcase
 
 " Show line numbers.
-set nonumber
-"set relativenumber
+"set nonumber
+set relativenumber
 
 " Toggle paste mode on and off.
 map <leader>p :setlocal paste!<cr>
@@ -76,7 +76,8 @@ set t_Co=8
 
 set background=dark
 
-highlight LineNr term=bold cterm=NONE ctermfg=red ctermbg=NONE
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGray ctermbg=NONE
+highlight CursorLineNr term=bold cterm=NONE ctermfg=Red ctermbg=NONE
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
