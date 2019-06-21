@@ -2,9 +2,29 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-execute pathogen#infect()
+"execute pathogen#infect()
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 " Plugins -> ctrlp.vim, vim-sneak, taby.vim
+call plug#begin('~/.vim/plugged')
+Plug 'kien/ctrlp.vim'
+Plug 'justinmk/vim-sneak'
+Plug 'kevinms/taby.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-sleuth'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'morhetz/gruvbox'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'fatih/vim-go'
+call plug#end()
 
 " Enable filetype plugins.
 filetype plugin on
@@ -38,7 +58,7 @@ set ignorecase
 set smartcase
 
 " Show line numbers.
-"set nonumber
+"set number
 set relativenumber
 
 " Toggle paste mode on and off.
@@ -70,9 +90,16 @@ set laststatus=2
 syntax enable
 syntax on
 
-colorscheme elflord
-set t_Co=8
 "set t_Co=256
+
+" Theme: elflord
+set t_Co=8
+colorscheme elflord
+
+" Theme: gruvbox
+" set termguicolors
+" let g:gruvbox_contrast_dark='hard'
+" colorscheme gruvbox
 
 set background=dark
 
@@ -224,6 +251,31 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Go
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
+augroup LspGo
+  au!
+  autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'go-lang',
+      \ 'cmd': {server_info->['gopls']},
+      \ 'whitelist': ['go'],
+      \ })
+  autocmd FileType go setlocal omnifunc=lsp#complete
+  "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
+  "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
+  "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+augroup END
+
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+" let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc Settings

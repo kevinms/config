@@ -39,23 +39,3 @@ ls -lash ~/.vimrc ~/.tmux.conf
 mkdir -p ~/.local/share/xfce4/terminal/colorschemes
 cp $(realpath $DIR/xfce4-colorscheme.theme) \
 	~/.local/share/xfce4/terminal/colorschemes
-
-plugin=~/.vim/autoload/pathogen.vim
-if [ ! -d $plugin ]; then
-	mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-	curl -LSso $plugin https://tpo.pe/pathogen.vim
-fi
-
-clone() {
-	if [ ! -d $2 ]; then
-		git clone $1 $2
-	fi
-}
-
-clone https://github.com/kien/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
-clone git://github.com/justinmk/vim-sneak.git ~/.vim/bundle/vim-sneak
-clone git://github.com/kevinms/taby.vim.git ~/.vim/bundle/taby.vim
-clone https://github.com/tpope/vim-eunuch.git ~/.vim/bundle/vim-eunuch
-clone https://github.com/junegunn/goyo.vim.git ~/.vim/bundle/goyo.vim
-clone https://github.com/junegunn/limelight.vim.git ~/.vim/bundle/limelight.vim
-clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
