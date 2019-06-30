@@ -26,6 +26,7 @@ Plug 'morhetz/gruvbox'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'fatih/vim-go'
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 " Enable filetype plugins.
