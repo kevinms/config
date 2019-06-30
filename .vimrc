@@ -13,10 +13,12 @@ endif
 " Plugins -> ctrlp.vim, vim-sneak, taby.vim
 call plug#begin('~/.vim/plugged')
 Plug 'kien/ctrlp.vim'
+Plug 'jiangmiao/auto-pairs'
 Plug 'justinmk/vim-sneak'
 Plug 'kevinms/taby.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'tomtom/tcomment_vim'
@@ -90,16 +92,16 @@ set laststatus=2
 syntax enable
 syntax on
 
-"set t_Co=256
+" set t_Co=256
 
 " Theme: elflord
-set t_Co=8
-colorscheme elflord
+" set t_Co=8
+" colorscheme elflord
 
 " Theme: gruvbox
-" set termguicolors
-" let g:gruvbox_contrast_dark='hard'
-" colorscheme gruvbox
+set termguicolors
+let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox
 
 set background=dark
 
@@ -276,6 +278,12 @@ augroup END
 " let g:lsp_log_file = expand('~/vim-lsp.log')
 " let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => auto-pairs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:AutoPairsCenterLine = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc Settings
