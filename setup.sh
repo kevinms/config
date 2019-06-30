@@ -43,5 +43,5 @@ cp $(realpath $DIR/xfce4-colorscheme.theme) \
 # gruvbox xfce4-terminal theme
 git clone https://github.com/morhetz/gruvbox-contrib.git
 mkdir -p ~/.local/share/xfce4/terminal/colorschemes
-cp *.theme ~/.local/share/xfce4/terminal/colorschemes/
+cp gruvbox-contrib/xfce4-terminal/*.theme ~/.local/share/xfce4/terminal/colorschemes/
 
