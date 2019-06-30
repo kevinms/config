@@ -93,13 +93,13 @@ syntax on
 "set t_Co=256
 
 " Theme: elflord
-set t_Co=8
-colorscheme elflord
+" set t_Co=8
+" colorscheme elflord
 
 " Theme: gruvbox
-" set termguicolors
-" let g:gruvbox_contrast_dark='hard'
-" colorscheme gruvbox
+set termguicolors
+let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox
 
 set background=dark
 
