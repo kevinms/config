@@ -52,3 +52,5 @@ if which tilix; then
 	mkdir -p /.config/tilix/schemes
 	cp tilix-gruvbox/gruvbox-* ~/.config/tilix/schemes/
 fi
+
+ln -s $(realpath $DIR/coc-settings.json) ~/.vim/
