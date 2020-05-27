@@ -12,13 +12,15 @@ endif
 
 " Plugins -> ctrlp.vim, vim-sneak, taby.vim
 call plug#begin('~/.vim/plugged')
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'justinmk/vim-sneak'
 Plug 'kevinms/taby.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
+Plug 'farmergreg/vim-lastplace'
+Plug 'junegunn/vim-slash'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'tomtom/tcomment_vim'
@@ -31,12 +33,22 @@ Plug 'prabirshrestha/async.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'arrufat/vala.vim'
 
+" Install:
+"   nodejs
+"   	curl -sL install-node.now.sh/lts | sudo bash
+"   vim
+"   	sudo add-apt-repository ppa:jonathonf/vim
+"   	sudo apt update
+"   	sudo apt install vim
+"
 " :CocInstall coc-tsserver coc-html coc-css
 " :CocInstall coc-swagger
 " :CocInstall coc-markdownlint
 " :CocInstall coc-python
 " :CocInstall coc-json coc-yaml
 " :CocInstall coc-rls
+"
+" Place coc-settings.json in .vim/ with Go settings.
 "
 " C/C++:
 " :CocInstall coc-clangd
@@ -182,6 +194,9 @@ nnoremap <silent> <Leader>q :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " Mapping to switch between .c and .h files
 map <F5> :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
 
+" Close the quickfix window
+" nmap <Leader>r :cclose<CR>
+
 set showtabline=2
 nnoremap <C-PageUp> gT
 nnoremap <C-PageDown> gt
@@ -326,7 +341,7 @@ if has("autocmd")
 endif
 
 " Mapping to edit vimrc
-nmap <Leader>r :CtrlPClearAllCaches<CR>
+" nmap <Leader>r :CtrlPClearAllCaches<CR>
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
