@@ -35,13 +35,20 @@ ln -s $(realpath $DIR/.tmux.conf) ~/.tmux.conf
 
 ls -lash ~/.vimrc ~/.tmux.conf
 
-# Install custom xfce4-terminal theme.
-mkdir -p ~/.local/share/xfce4/terminal/colorschemes
-cp $(realpath $DIR/xfce4-colorscheme.theme) \
-	~/.local/share/xfce4/terminal/colorschemes
+if which xfce4-terminal; then
+	# Install custom xfce4-terminal theme.
+	mkdir -p ~/.local/share/xfce4/terminal/colorschemes
+	cp $(realpath $DIR/xfce4-colorscheme.theme) \
+		~/.local/share/xfce4/terminal/colorschemes
 
-# gruvbox xfce4-terminal theme
-git clone https://github.com/morhetz/gruvbox-contrib.git
-mkdir -p ~/.local/share/xfce4/terminal/colorschemes
-cp gruvbox-contrib/xfce4-terminal/*.theme ~/.local/share/xfce4/terminal/colorschemes/
+	# gruvbox xfce4-terminal theme
+	git clone https://github.com/morhetz/gruvbox-contrib.git
+	mkdir -p ~/.local/share/xfce4/terminal/colorschemes
+	cp gruvbox-contrib/xfce4-terminal/*.theme ~/.local/share/xfce4/terminal/colorschemes/
+fi
 
+if which tilix; then
+	git clone git@github.com:MichaelThessel/tilix-gruvbox.git
+	mkdir -p /.config/tilix/schemes
+	cp tilix-gruvbox/gruvbox-* ~/.config/tilix/schemes/
+fi
