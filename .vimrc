@@ -33,12 +33,22 @@ Plug 'prabirshrestha/async.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'arrufat/vala.vim'
 
+" Install:
+"   nodejs
+"   	curl -sL install-node.now.sh/lts | sudo bash
+"   vim
+"   	sudo add-apt-repository ppa:jonathonf/vim
+"   	sudo apt update
+"   	sudo apt install vim
+"
 " :CocInstall coc-tsserver coc-html coc-css
 " :CocInstall coc-swagger
 " :CocInstall coc-markdownlint
 " :CocInstall coc-python
 " :CocInstall coc-json coc-yaml
 " :CocInstall coc-rls
+"
+" Place coc-settings.json in .vim/ with Go settings.
 "
 " C/C++:
 " :CocInstall coc-clangd
