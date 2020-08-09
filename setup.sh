@@ -49,7 +49,7 @@ fi
 
 if which tilix; then
 	git clone git@github.com:MichaelThessel/tilix-gruvbox.git
-	mkdir -p /.config/tilix/schemes
+	mkdir -p ~/.config/tilix/schemes
 	cp tilix-gruvbox/gruvbox-* ~/.config/tilix/schemes/
 fi
 
