@@ -47,6 +47,8 @@ Plug 'arrufat/vala.vim'
 " :CocInstall coc-python
 " :CocInstall coc-json coc-yaml
 " :CocInstall coc-rls
+" :CocInstall coc-clangd
+" :CocCommand clangd.install
 "
 " Place coc-settings.json in .vim/ with Go settings.
 "
