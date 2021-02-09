@@ -35,9 +35,17 @@ alias lynx='lynx -accept_all_cookies -nopause -use_mouse'
 alias duck='ssh <user>@<hostname>'
 alias debris='ssh <user>@<hostname>'
 alias staging='ssh <user>@<hostname>'
+alias nas='ssh <user>@<hostname>'
+alias hal='ssh <user>@<hostname>'
+alias uni='ssh <user>@<hostname>'
 
 if [ $DISPLAY ]; then
 	xset r rate 200 25
 fi
 
+alias screenon='while /bin/true; do qdbus org.freedesktop.ScreenSaver /ScreenSaver SimulateUserActivity > /dev/null; sleep 1m; done'
 alias twirl='twirl=(":|" ":/" ":-" ":\\"); echo; while ((1)); do for ((i = 0; i < ${#twirl[@]}; i++)); do echo -ne "\r  ${twirl[$i]}  "; sleep .1; done; done'
+
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:~/go/bin
+export PATH=$PATH:~/bin
