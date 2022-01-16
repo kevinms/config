@@ -32,6 +32,11 @@ Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'arrufat/vala.vim'
+Plug 'hashivim/vim-terraform'
+Plug 'chr4/nginx.vim'
+Plug 'posva/vim-vue'
+Plug 'tikhomirov/vim-glsl'
+Plug 'habamax/vim-godot'
 
 " Install:
 "   nodejs
@@ -49,6 +54,8 @@ Plug 'arrufat/vala.vim'
 " :CocInstall coc-rls
 " :CocInstall coc-clangd
 " :CocCommand clangd.install
+"
+" :CocInstall coc-godot
 "
 " Place coc-settings.json in .vim/ with Go settings.
 "
@@ -188,7 +195,7 @@ map <leader>s :setlocal spell!<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Mapping to edit vimrc
-nmap <Leader>v :edit $MYVIMRC<CR>
+nmap <Leader>v :tabedit $MYVIMRC<CR>
 
 " Open a Quickfix window for the last search.
 nnoremap <silent> <Leader>q :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
@@ -328,6 +335,12 @@ nmap <Leader>c :GoCoverageToggle<CR>
 let g:AutoPairsCenterLine = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-terraform
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:terraform_fmt_on_save=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -343,7 +356,7 @@ if has("autocmd")
 endif
 
 " Mapping to edit vimrc
-" nmap <Leader>r :CtrlPClearAllCaches<CR>
+nmap <Leader>r :CtrlPClearAllCaches<CR>
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.

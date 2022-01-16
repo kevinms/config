@@ -49,3 +49,7 @@ alias twirl='twirl=(":|" ":/" ":-" ":\\"); echo; while ((1)); do for ((i = 0; i 
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:~/go/bin
 export PATH=$PATH:~/bin
+
+# export GTK_IM_MODULE=ibus
+# export QT_IM_MODULE=ibus
+# export XMODIFIERS=@im=ibus

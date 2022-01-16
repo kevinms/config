@@ -16,6 +16,8 @@ while [[ "$#" > 0 ]]; do
 	shift;
 done
 
+ln -s $(realpath $DIR/coc-settings.json) ~/.vim/
+
 must_not_exist() {
 	if [ -f $1 ]; then
 		if (($force)); then
