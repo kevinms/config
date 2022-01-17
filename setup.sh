@@ -32,6 +32,11 @@ must_not_exist() {
 	fi
 }
 
+if ! grep $(realpath $DIR/.bashrc) ~/.bashrc; then
+	echo "Adding custom bashrc to .bashrc"
+	echo -e "\nsource $(realpath $DIR/.bashrc)" >> ~/.bashrc
+fi
+
 must_not_exist ~/.vimrc
 must_not_exist ~/.tmux.conf
 

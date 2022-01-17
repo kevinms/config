@@ -1,8 +1,14 @@
 #!/bin/bash
 
-set -euxo pipefail
+set -euo pipefail
 
 #TODO: Must run as root
+if ! [ "${EUID:-$(id -u)}" -eq 0 ]; then
+	echo "ERROR: root privileges are needed to run this script"
+	exit 1
+fi
+
+set -x
 
 apt update -y
 apt upgrade -y
