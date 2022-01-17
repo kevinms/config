@@ -64,9 +64,7 @@ fi
 apt install -y pidgin pidgin-otr
 if ! which discord; then
 	wget -O discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
-	apt install ./discord.deb
-	#apt install -y gdebi-core
-	#gdebi ./discord.deb
+	apt install -y ./discord.deb
 	rm -f discord.deb
 fi
 
