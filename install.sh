@@ -4,117 +4,126 @@ set -euxo pipefail
 
 #TODO: Must run as root
 
-apt update
-apt upgrade
+apt update -y
+apt upgrade -y
 
 # Critical
-apt install vim git tmux tilix
+apt install -y vim git tmux tilix
 
 # Build tools
-apt install build-essential clangd
+apt install -y build-essential clangd
 
 # Basic utilities
-apt install zip unzip gedit gparted
+apt install -y zip unzip gedit gparted wget curl
 
 # Virtualization
-apt install remmina virtualbox qemu qemu-kvm virt-manager
+apt install -y remmina virtualbox qemu qemu-kvm virt-manager
 
 # SSH server
-apt install openssh-server
+apt install -y openssh-server
 
 # VPN plugins
-apt install network-manager-openconnect network-manager-l2tp
+apt install -y network-manager-openconnect network-manager-l2tp
 
 # Disk utilities
-apt install smartmontools sysstat
+apt install -y smartmontools sysstat
 
 # Graphics and audio
-apt install gimp inkscape krita audacity
+apt install -y gimp inkscape krita audacity
 
 # Backups
-apt install timeshift
+apt install -y timeshift
 
 # LaTex editor
-apt install gummi
+apt install -y gummi
 
 # Screen capture and recording
-apt install peek
-if !which obs; then
-	apt install ffmpeg
-	apt install v4l2loopback-dkms
-	add-apt-repository ppa:obsproject/obs-studio
-	apt update
-	apt install obs-studio
+apt install -y peek
+if ! which obs; then
+	apt install -y ffmpeg
+	apt install -y v4l2loopback-dkms
+	add-apt-repository -y ppa:obsproject/obs-studio
+	apt update -y
+	apt install -y obs-studio
 fi
 
 # Gaming
-apt install lutris winetricks
-if !which steam; then
-	add-apt-repository multiverse
-	apt update
-	apt install steam
+if ! which lutris; then
+	add-apt-repository -y ppa:lutris-team/lutris
+	apt update -y
+	apt install -y lutris
+	apt install -y winetricks
+fi
+if ! which steam; then
+	add-apt-repository -y multiverse
+	apt update -y
+	apt install -y steam
 fi
 
 # Messaging
-apt install pidgin pidgin-otr
-if !which discord; then
+apt install -y pidgin pidgin-otr
+if ! which discord; then
 	wget -O discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
-	dpkg -i discord.deb
-	rm discord.deb
+	apt install ./discord.deb
+	#apt install -y gdebi-core
+	#gdebi ./discord.deb
+	rm -f discord.deb
 fi
 
-#TODO: vscode
-
 # keepassxc
-if !which keepassxc; then
-	add-apt-repository ppa:phoerious/keepassxc
-	apt update
-	apt install keepassxc
+if ! which keepassxc; then
+	add-apt-repository -y ppa:phoerious/keepassxc
+	apt update -y
+	apt install -y keepassxc
 fi
 
 # Docker
-if !which docker; then
+if ! which docker; then
 	curl -fsSL https://get.docker.com -o get-docker.sh
 	sh get-docker.sh
+	rm -f get-docker.sh
 	usermod -aG docker kevin
 fi
 
 # Go
-if !which go; then
+if ! which go; then
 	version=$(curl https://go.dev/VERSION?m=text)
 	wget https://go.dev/dl/$version.linux-amd64.tar.gz
 	rm -rf /usr/local/go && tar -C /usr/local -xzf $version.linux-amd64.tar.gz
-	rm $version.linux-amd64.tar.gz
+	rm -f $version.linux-amd64.tar.gz
 	# The PATH should already or will be set correctly in .profile or .bashrc
 	#export PATH=$PATH:/usr/local/go/bin
 	#export PATH=$PATH:~/go/bin
 fi
 
 # NodeJS
-if !which node; then
+if ! which node; then
 	curl -sL install-node.now.sh/lts | bash
 fi
 
 #TODO: ibus / anthy
+# apt install -y ibus ibus-anthy
+# apt install -y ibus-gtk ibus-gtk3 # Is this needed?
 
 # Browsers
-if !which google-chrome; then
+if ! which google-chrome; then
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	dpkg -i google-chrome-stable_current_amd64.deb
-	rm google-chrome-stable_current_amd64.deb
+	rm -f google-chrome-stable_current_amd64.deb
 fi
-if !which brave-browser; then
-	apt install apt-transport-https curl
+if ! which brave-browser; then
+	apt install -y apt-transport-https curl
 	curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 	echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-	apt update
-	apt install brave-browser
+	apt update -y
+	apt install -y brave-browser
 fi
 
 # Chat
 
 cat <<EoF
 Manually install the following programs:
+	vscode
 	teams
 	blender
 	godot
