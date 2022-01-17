@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 print_help() {
@@ -16,6 +18,7 @@ while [[ "$#" > 0 ]]; do
 	shift;
 done
 
+mkdir ~/.vim
 ln -s $(realpath $DIR/coc-settings.json) ~/.vim/
 
 must_not_exist() {
@@ -55,4 +58,3 @@ if which tilix; then
 	cp tilix-gruvbox/gruvbox-* ~/.config/tilix/schemes/
 fi
 
-ln -s $(realpath $DIR/coc-settings.json) ~/.vim/

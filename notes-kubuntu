@@ -1,0 +1,33 @@
+Adjust theme to Breeze Dark
+
+ssh-keygen
+
+Configure KRunner to do only basic things
+Configure Tilix
+
+# qemu guest additions
+Must log out for group changes to take affect.
+Make sure to install the guest agent for copy/paste/resizing
+https://stackoverflow.com/questions/41990600/virt-manager-guest-resize-not-working
+https://www.spice-space.org/download.html#guest
+
+Then, System Settings -> Application Style -> Configure GNOME/GTK Application Style
+
+# Make sure new windows take focus
+System Settings -> Window Behavior -> Focus stealing prevention -> None
+
+# NumLock on KDE start
+System Settings -> Input Devices -> Keyboard -> NumLock on Plasma Startup -> Turn on
+
+Configure static IP address
+
+Wake-on-LAN:
+    nmcli con show
+    nmcli c show "Wired connection 1" | grep 802-3-ethernet.wake-on-lan
+    nmcli c modify "Wired connection 1" 802-3-ethernet.wake-on-lan magic
+
+
+# Show previews/thumbnails when browsing remote file shares in Dolphin:
+For previews on Samba shares, you need to alter the Dolphin settings. Open
+Dolphin > (wrench in top right) > Configure Dolphin > General. Change the
+"Remote files above" setting to a level you think is necessary.
