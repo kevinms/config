@@ -104,6 +104,7 @@ fi
 if ! which node; then
 	curl -sL install-node.now.sh/lts > nodejs-lts.sh
 	bash nodejs-lts.sh -y
+	rm -f nodejs-lts.sh
 fi
 
 #TODO: ibus / anthy
