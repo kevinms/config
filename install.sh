@@ -20,13 +20,13 @@ apt install -y vim git tmux tilix
 apt install -y build-essential clangd
 
 # Basic utilities
-apt install -y zip unzip gedit gparted wget curl
+apt install -y zip unzip gedit gparted wget curl jq
 
 # Virtualization
 apt install -y remmina virtualbox qemu qemu-kvm virt-manager
 
-# SSH server
-apt install -y openssh-server
+# Remote management
+apt install -y openssh-server ansible
 
 # VPN plugins
 apt install -y network-manager-openconnect network-manager-l2tp
@@ -35,7 +35,7 @@ apt install -y network-manager-openconnect network-manager-l2tp
 apt install -y smartmontools sysstat
 
 # Graphics and audio
-apt install -y gimp inkscape krita audacity
+apt install -y gimp inkscape krita audacity kcolorchooser
 
 # Backups
 apt install -y timeshift
@@ -88,6 +88,7 @@ if ! which docker; then
 	rm -f get-docker.sh
 	usermod -aG docker kevin
 fi
+apt install -y docker-compose
 
 # Go
 if ! which go; then
