@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
+" => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -8,7 +8,12 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Plugins
+" Updating plugins:
+" 
+" :PlugUpdate
+" :CocUpdate
+" :GoUpdateBinaries
+
 call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -32,33 +37,20 @@ Plug 'posva/vim-vue'
 Plug 'tikhomirov/vim-glsl'
 Plug 'habamax/vim-godot'
 
-" Install:
-"   nodejs
+" Requires:
+"   nodejs >= 11.12
 "   	curl -sL install-node.now.sh/lts | sudo bash
-"   vim
+"   vim >= 8.0.1453
 "   	sudo add-apt-repository ppa:jonathonf/vim
 "   	sudo apt update
 "   	sudo apt install vim
 "
-" :CocInstall coc-tsserver coc-html coc-css
-" :CocInstall coc-swagger
-" :CocInstall coc-markdownlint
-" :CocInstall coc-python
-" :CocInstall coc-json coc-yaml
-" :CocInstall coc-rls
-" :CocInstall coc-clangd
-" :CocCommand clangd.install
-" :CocInstall coc-godot
+" Install:
+"   clangd
+"   	:CocCommand clangd.install
+"   coc-settings.json
+"   	Place coc-settings.json in ~/.vim/
 "
-" Place coc-settings.json in .vim/ with Go settings.
-"
-" Update all the CoC extensions:
-" :CocUpdate
-"
-" Install latest clangd binary:
-" :CocCommand clangd.install
-"
-" vim -esN +GoInstallBinaries +q
 let g:coc_global_extensions = [
     \'coc-tsserver', 'coc-html', 'coc-css',
     \'coc-swagger',
@@ -71,6 +63,10 @@ let g:coc_global_extensions = [
 \]
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Enable filetype plugins.
 filetype plugin on
@@ -108,6 +104,7 @@ set smartcase
 " Show line numbers.
 "set number
 set relativenumber
+nnoremap <leader>a :set number! \| :set relativenumber!<cr>
 
 " Toggle paste mode on and off.
 map <leader>p :setlocal paste!<cr>
