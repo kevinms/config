@@ -2,15 +2,13 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"execute pathogen#infect()
-
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Plugins -> ctrlp.vim, vim-sneak, taby.vim
+" Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -26,10 +24,6 @@ Plug 'junegunn/limelight.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'morhetz/gruvbox'
 Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'arrufat/vala.vim'
 Plug 'hashivim/vim-terraform'
@@ -54,14 +48,27 @@ Plug 'habamax/vim-godot'
 " :CocInstall coc-rls
 " :CocInstall coc-clangd
 " :CocCommand clangd.install
-"
 " :CocInstall coc-godot
 "
 " Place coc-settings.json in .vim/ with Go settings.
 "
-" C/C++:
-" :CocInstall coc-clangd
+" Update all the CoC extensions:
+" :CocUpdate
+"
+" Install latest clangd binary:
 " :CocCommand clangd.install
+"
+" vim -esN +GoInstallBinaries +q
+let g:coc_global_extensions = [
+    \'coc-tsserver', 'coc-html', 'coc-css',
+    \'coc-swagger',
+    \'coc-markdownlint',
+    \'coc-python',
+    \'coc-json', 'coc-yaml',
+    \'coc-rls',
+    \'coc-clangd',
+    \'coc-godot',
+\]
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
