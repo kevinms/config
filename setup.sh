@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 print_help() {
@@ -18,7 +16,12 @@ while [[ "$#" > 0 ]]; do
 	shift;
 done
 
-mkdir ~/.vim
+if ! which go; then
+	echo "Must have go installed and in your PATH"
+	exit 1
+fi
+
+mkdir -p ~/.vim
 ln -s $(realpath $DIR/coc-settings.json) ~/.vim/
 
 must_not_exist() {
