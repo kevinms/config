@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+pushd "$DIR" > /dev/null
 
 print_help() {
 	echo "$0 [-f|--force] [-h|--help]"
@@ -16,53 +17,81 @@ while [[ "$#" > 0 ]]; do
 	shift;
 done
 
-if ! which go; then
-	echo "Must have go installed and in your PATH"
-	exit 1
-fi
+ask_to_continue() {
+	while true; do
+		read -p "$1 Enter y/n: " answer
+		case $answer in
+			[Yy] ) break;;
+			[Nn] ) exit 1;;
+			* ) echo "Please answer y or n.";;
+		esac
+	done
+}
 
-mkdir -p ~/.vim
-ln -s $(realpath $DIR/coc-settings.json) ~/.vim/
-
-must_not_exist() {
-	if [ -f $1 ]; then
-		if (($force)); then
-			rm -f $1
-			return
-		fi
-		echo "$1 already exists?!"
-		exit 1
+link_or_ask() {
+	eval TARGET=$1
+	eval LINK_NAME=$2
+	if [[ ! -f "$LINK_NAME" ]]; then
+		ln -s $(realpath "$TARGET") "$LINK_NAME"
+	fi
+	if [[ ! "$TARGET" -ef "$LINK_NAME" ]]; then
+		echo "WARNING: $LINK_NAME already exists?!"
+		ask_to_continue "Do you want to overwrite it?"
+		rm -f "$LINK_NAME"
+		ln -s $(realpath "$TARGET") "$LINK_NAME"
 	fi
 }
 
-if ! grep $(realpath $DIR/.bashrc) ~/.bashrc; then
+#
+# Setup bash
+#
+if ! grep $(realpath .bashrc) ~/.bashrc; then
 	echo "Adding custom bashrc to .bashrc"
-	echo -e "\nsource $(realpath $DIR/.bashrc)" >> ~/.bashrc
+	echo -e "\nsource $(realpath .bashrc)" >> ~/.bashrc
 fi
+source ~/.bashrc
 
-must_not_exist ~/.vimrc
-must_not_exist ~/.tmux.conf
+#
+# Setup tmux
+#
+link_or_ask .tmux.conf ~/.tmux.conf
 
-ln -s $(realpath $DIR/.vimrc) ~/.vimrc
-ln -s $(realpath $DIR/.tmux.conf) ~/.tmux.conf
+#
+# Setup vim
+#
+link_or_ask .vimrc ~/.vimrc
 
-ls -lash ~/.vimrc ~/.tmux.conf
+mkdir -p ~/.vim
+link_or_ask coc-settings.json ~/.vim/coc-settings.json
 
+#
+# Setup terminal
+#
+pushd colorscheme > /dev/null
 if which xfce4-terminal; then
-	# Install custom xfce4-terminal theme.
+	# gruvbox xfce4-terminal theme -- slightly customized
 	mkdir -p ~/.local/share/xfce4/terminal/colorschemes
-	cp $(realpath $DIR/xfce4-colorscheme.theme) \
-		~/.local/share/xfce4/terminal/colorschemes
+	cp xfce4-colorscheme.theme ~/.local/share/xfce4/terminal/colorschemes
 
 	# gruvbox xfce4-terminal theme
-	git clone https://github.com/morhetz/gruvbox-contrib.git
+	[[ ! -d gruvbox-contrib ]] && git clone https://github.com/morhetz/gruvbox-contrib.git
 	mkdir -p ~/.local/share/xfce4/terminal/colorschemes
 	cp gruvbox-contrib/xfce4-terminal/*.theme ~/.local/share/xfce4/terminal/colorschemes/
 fi
-
 if which tilix; then
-	git clone git@github.com:MichaelThessel/tilix-gruvbox.git
+	# gruvbox tilix theme
+	[[ ! -d tilix-gruvbox ]] && git clone git@github.com:MichaelThessel/tilix-gruvbox.git
 	mkdir -p ~/.config/tilix/schemes
 	cp tilix-gruvbox/gruvbox-* ~/.config/tilix/schemes/
 fi
+popd > /dev/null
 
+#
+# Warn about vim plugin dependencies
+#
+if ! which go; then
+	echo "WARNING: vim plugins need 'go' installed and in your PATH"
+fi
+if ! which node; then
+	echo "WARNING: vim plugins need 'node' installed and in your PATH"
+fi

@@ -15,27 +15,31 @@ endif
 " :GoUpdateBinaries
 
 call plug#begin('~/.vim/plugged')
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'justinmk/vim-sneak'
-Plug 'kevinms/taby.vim'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-surround'
-Plug 'farmergreg/vim-lastplace'
-Plug 'junegunn/vim-slash'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'tomtom/tcomment_vim'
-Plug 'morhetz/gruvbox'
-Plug 'prabirshrestha/async.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'ctrlpvim/ctrlp.vim'       " Fuzzy finder
+Plug 'jiangmiao/auto-pairs'     " Insert or delete brackets, parens, quotes in pairs
+Plug 'justinmk/vim-sneak'       " Jump to any location specified by two characters
+Plug 'kevinms/taby.vim'         " Custom tab line
+Plug 'tpope/vim-eunuch'         " :SudoWrite and :SudoEdit
+Plug 'tpope/vim-sleuth'         " Heuristically set indention
+Plug 'tpope/vim-surround'       " Delete/change/add parentheses/quotes/XML-tags/much more with ease
+Plug 'farmergreg/vim-lastplace' " Intelligently reopen files at your last edit position
+Plug 'junegunn/vim-slash'       " Improve search highlighting
+Plug 'junegunn/goyo.vim'        " Distraction-free writing
+Plug 'junegunn/limelight.vim'   " Hyperfocus-writing
+Plug 'tomtom/tcomment_vim'      " Easily add/remove comments
+Plug 'morhetz/gruvbox'          " The best colorscheme
+
+" Language plugins:
 Plug 'arrufat/vala.vim'
 Plug 'hashivim/vim-terraform'
 Plug 'chr4/nginx.vim'
 Plug 'posva/vim-vue'
 Plug 'tikhomirov/vim-glsl'
 Plug 'habamax/vim-godot'
+
+" Requires:
+"   go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Requires:
 "   nodejs >= 11.12

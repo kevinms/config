@@ -11,7 +11,8 @@ Make sure to install the guest agent for copy/paste/resizing
 https://stackoverflow.com/questions/41990600/virt-manager-guest-resize-not-working
 https://www.spice-space.org/download.html#guest
 
-Then, System Settings -> Application Style -> Configure GNOME/GTK Application Style
+# Set GTK them to breeze dark
+System Settings -> Application Style -> Configure GNOME/GTK Application Style
 
 # Make sure new windows take focus
 System Settings -> Window Behavior -> Focus stealing prevention -> None
