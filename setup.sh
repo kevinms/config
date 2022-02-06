@@ -3,20 +3,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 pushd "$DIR" > /dev/null
 
-print_help() {
-	echo "$0 [-f|--force] [-h|--help]"
-	exit 1
-}
-
-while [[ "$#" > 0 ]]; do
-	case $1 in
-		-f|--force) force=1;;
-		-h|--help) print_help;;
-		*) echo "Unknown parameter passed: $1"; exit 1;;
-	esac
-	shift;
-done
-
 ask_to_continue() {
 	while true; do
 		read -p "$1 Enter y/n: " answer
@@ -31,7 +17,8 @@ ask_to_continue() {
 link_or_ask() {
 	eval TARGET=$1
 	eval LINK_NAME=$2
-	if [[ ! -f "$LINK_NAME" ]]; then
+	if [[ ! -e "$LINK_NAME" ]]; then
+		rm -f "$LINK_NAME" # maybe a bad symblink
 		ln -s $(realpath "$TARGET") "$LINK_NAME"
 	fi
 	if [[ ! "$TARGET" -ef "$LINK_NAME" ]]; then
@@ -45,27 +32,27 @@ link_or_ask() {
 #
 # Setup bash
 #
-if ! grep $(realpath .bashrc) ~/.bashrc; then
+if ! grep $(realpath bash/.bashrc) ~/.bashrc; then
 	echo "Adding custom bashrc to .bashrc"
-	echo -e "\nsource $(realpath .bashrc)" >> ~/.bashrc
+	echo -e "\nsource $(realpath bash/.bashrc)" >> ~/.bashrc
 fi
 source ~/.bashrc
 
 #
 # Setup tmux
 #
-link_or_ask .tmux.conf ~/.tmux.conf
+link_or_ask tmux/.tmux.conf ~/.tmux.conf
 
 #
 # Setup vim
 #
-link_or_ask .vimrc ~/.vimrc
+link_or_ask vim/.vimrc ~/.vimrc
 
 mkdir -p ~/.vim
-link_or_ask coc-settings.json ~/.vim/coc-settings.json
+link_or_ask vim/coc-settings.json ~/.vim/coc-settings.json
 
 #
-# Setup terminal
+# Setup colorschemes
 #
 pushd colorscheme > /dev/null
 if which xfce4-terminal; then

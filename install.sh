@@ -91,6 +91,7 @@ fi
 apt install -y docker-compose
 
 # Go
+export PATH=$PATH:/usr/local/go/bin
 if ! which go; then
 	version=$(curl https://go.dev/VERSION?m=text)
 	wget https://go.dev/dl/$version.linux-amd64.tar.gz

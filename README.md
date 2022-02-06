@@ -11,6 +11,7 @@ Install applications for a fresh Kubuntu image (Ubuntu/Debian derivative):
 
 ```sh
 ./config/install.sh
+# Refer to notes-kubuntu
 ```
 
 Setup terminal / editor config:
