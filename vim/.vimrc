@@ -34,6 +34,7 @@ Plug 'arrufat/vala.vim'
 Plug 'hashivim/vim-terraform'
 Plug 'chr4/nginx.vim'
 Plug 'posva/vim-vue'
+Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 Plug 'habamax/vim-godot'
 
