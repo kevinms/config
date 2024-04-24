@@ -60,14 +60,14 @@ let g:coc_global_extensions = [
     \'coc-tsserver', 'coc-html', 'coc-css',
     \'coc-swagger',
     \'coc-markdownlint',
-    \'coc-python',
     \'coc-json', 'coc-yaml',
-    \'coc-rls',
-    \'coc-clangd',
     \'coc-godot',
+    \'coc-rust-analyzer',
 \]
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
+    " \'coc-python',
+    " \'coc-clangd',
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General

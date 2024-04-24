@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-#TODO: Must run as root
+# Must run as root
 if ! [ "${EUID:-$(id -u)}" -eq 0 ]; then
 	echo "ERROR: root privileges are needed to run this script"
 	exit 1
@@ -23,10 +23,10 @@ apt install -y build-essential clangd
 apt install -y zip unzip gedit gparted wget curl jq
 
 # Virtualization
-apt install -y remmina virtualbox qemu qemu-kvm virt-manager
+apt install -y virtualbox qemu qemu-kvm virt-manager
 
 # Remote management
-apt install -y openssh-server ansible
+apt install -y openssh-server ansible remmina
 
 # VPN plugins
 apt install -y network-manager-openconnect network-manager-l2tp
@@ -36,9 +36,6 @@ apt install -y smartmontools sysstat
 
 # Graphics and audio
 apt install -y gimp inkscape krita audacity kcolorchooser
-
-# Backups
-apt install -y timeshift
 
 # LaTex editor
 apt install -y gummi
@@ -93,7 +90,7 @@ apt install -y docker-compose
 # Go
 export PATH=$PATH:/usr/local/go/bin
 if ! which go; then
-	version=$(curl https://go.dev/VERSION?m=text)
+	version=$(curl https://go.dev/VERSION?m=text | head -1)
 	wget https://go.dev/dl/$version.linux-amd64.tar.gz
 	rm -rf /usr/local/go && tar -C /usr/local -xzf $version.linux-amd64.tar.gz
 	rm -f $version.linux-amd64.tar.gz
@@ -104,9 +101,28 @@ fi
 
 # NodeJS
 if ! which node; then
-	curl -sL install-node.now.sh/lts > nodejs-lts.sh
-	bash nodejs-lts.sh -y
-	rm -f nodejs-lts.sh
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+	source ~/.bashrc
+	nvm list-remote
+	nvm install v18.14.2
+	nvm list
+	node -v
+fi
+
+# GUI Code Editor
+snap install codium --classic
+if ! which codium; then
+	mkdir -p ~/.config/VSCodium/
+	cat <<-EoF > ~/.config/VSCodium/product.json
+		{
+		  "extensionsGallery": {
+			"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
+			"itemUrl": "https://marketplace.visualstudio.com/items",
+			"cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
+			"controlUrl": ""
+		  }
+		}
+	EoF
 fi
 
 #TODO: ibus / anthy
@@ -127,12 +143,17 @@ if ! which brave-browser; then
 	apt install -y brave-browser
 fi
 
-# Chat
+# Game Dev
+snap install blender --classic
+if ! which godot; then
+	downloadLink=$(curl -s https://api.github.com/repos/godotengine/godot/releases/latest | jq -r '.assets[] | select(.browser_download_url | contains("linux.x86_64")).browser_download_url')
+	wget $downloadLink
+	archivePath=${downloadLink##*/}
+	unzip $archivePath -d ~/bin/
+	rm $archivePath
+fi
 
 cat <<EoF
 Manually install the following programs:
-	vscode
-	teams
-	blender
-	godot
+	darktable
 EoF
