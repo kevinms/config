@@ -2,6 +2,9 @@ Adjust theme to Breeze Dark
 
 ssh-keygen
 
+./install.sh
+./setup.sh
+
 Configure KRunner to do only basic things
 Configure Tilix
 
@@ -16,9 +19,35 @@ System Settings -> Application Style -> Configure GNOME/GTK Application Style
 
 # Make sure new windows take focus
 System Settings -> Window Behavior -> Focus stealing prevention -> None
+System Settings -> Window Behavior -> Window Actions -> Left Click: Activate, raise and move
+
+# Faster effect animation speed:
+System Settings -> Workspace Behavior -> General Behavior -> Animation speed -> faster
+
+# Alt+Tab previews:
+System Settings -> Window Management -> Task Switcher -> Visualization -> Thumbnail Grid
+
+System Settings -> Startup and Shutdown -> Desktop Session -> Start with an empty session
 
 # NumLock on KDE start
 System Settings -> Input Devices -> Keyboard -> NumLock on Plasma Startup -> Turn on
+
+# Maximize windows
+System Settings -> Shortcuts -> KWin -> Maximize Window -> Meta+Up
+
+# Disable scrolling on desktop
+right-click the desktop -> Desktop settings -> Mouse actions -> remove "vertical scrollwheel: xxx"
+
+Configure 3x3 workspace grid with workspace preview widget
+
+Hotkeys:
+	Terminal:              Meta+t
+	Switch to Desktop 1-9: Meta+Num+1-9
+	Window to Desktop 1-9: Meta+Ctrl+Num+1-9
+
+Clipboard configuration:
+	Save history across desktop sessions: off
+	History Size: 1
 
 Configure static IP address
 

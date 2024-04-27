@@ -20,16 +20,24 @@ apt install -y vim git tmux tilix
 apt install -y build-essential clangd
 
 # Basic utilities
-apt install -y zip unzip gedit gparted wget curl jq
+apt install -y zip unzip gedit wget curl jq
 
 # Virtualization
-apt install -y virtualbox qemu qemu-kvm virt-manager
+apt install -y virtualbox qemu-system qemu-kvm virt-manager
 
 # Remote management
 apt install -y openssh-server ansible remmina
 
 # VPN plugins
 apt install -y network-manager-openconnect network-manager-l2tp
+if ! which nordvpn; then
+	wget -qnc https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
+	dpkg -i nordvpn-release_1.0.0_all.deb
+	rm nordvpn-release_1.0.0_all.deb
+	apt update -y
+	apt install -y nordvpn
+	usermod -aG nordvpn kevin
+fi
 
 # Disk utilities
 apt install -y smartmontools sysstat
@@ -42,24 +50,21 @@ apt install -y gummi
 
 # Screen capture and recording
 apt install -y peek
-if ! which obs; then
-	apt install -y ffmpeg
-	apt install -y v4l2loopback-dkms
-	add-apt-repository -y ppa:obsproject/obs-studio
-	apt update -y
-	apt install -y obs-studio
-fi
+#if ! which obs; then
+#	apt install -y ffmpeg
+#	apt install -y v4l2loopback-dkms
+#	add-apt-repository -y ppa:obsproject/obs-studio
+#	apt install -y obs-studio
+#fi
 
 # Gaming
-if ! which lutris; then
-	add-apt-repository -y ppa:lutris-team/lutris
-	apt update -y
-	apt install -y lutris
-	apt install -y winetricks
-fi
+#if ! which lutris; then
+#	add-apt-repository -y ppa:lutris-team/lutris
+#	apt install -y lutris
+#	apt install -y winetricks
+#fi
 if ! which steam; then
 	add-apt-repository -y multiverse
-	apt update -y
 	apt install -y steam
 fi
 
@@ -74,7 +79,6 @@ fi
 # keepassxc
 if ! which keepassxc; then
 	add-apt-repository -y ppa:phoerious/keepassxc
-	apt update -y
 	apt install -y keepassxc
 fi
 
@@ -85,7 +89,6 @@ if ! which docker; then
 	rm -f get-docker.sh
 	usermod -aG docker kevin
 fi
-apt install -y docker-compose
 
 # Go
 export PATH=$PATH:/usr/local/go/bin
@@ -99,31 +102,11 @@ if ! which go; then
 	#export PATH=$PATH:~/go/bin
 fi
 
-# NodeJS
-if ! which node; then
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-	source ~/.bashrc
-	nvm list-remote
-	nvm install v18.14.2
-	nvm list
-	node -v
-fi
-
 # GUI Code Editor
 snap install codium --classic
-if ! which codium; then
-	mkdir -p ~/.config/VSCodium/
-	cat <<-EoF > ~/.config/VSCodium/product.json
-		{
-		  "extensionsGallery": {
-			"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
-			"itemUrl": "https://marketplace.visualstudio.com/items",
-			"cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
-			"controlUrl": ""
-		  }
-		}
-	EoF
-fi
+
+# Game Dev
+snap install blender --classic
 
 #TODO: ibus / anthy
 # apt install -y ibus ibus-anthy
@@ -136,22 +119,17 @@ if ! which google-chrome; then
 	rm -f google-chrome-stable_current_amd64.deb
 fi
 if ! which brave-browser; then
-	apt install -y apt-transport-https curl
-	curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-	echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+	curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+		https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+	echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" \
+		| sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 	apt update -y
 	apt install -y brave-browser
 fi
 
-# Game Dev
-snap install blender --classic
-if ! which godot; then
-	downloadLink=$(curl -s https://api.github.com/repos/godotengine/godot/releases/latest | jq -r '.assets[] | select(.browser_download_url | contains("linux.x86_64")).browser_download_url')
-	wget $downloadLink
-	archivePath=${downloadLink##*/}
-	unzip $archivePath -d ~/bin/
-	rm $archivePath
-fi
+# Run install commands that must be done as non-root user:
+scriptDir=$(realpath $(dirname "$0"))
+sudo -u kevin $scriptDir/install-user.sh
 
 cat <<EoF
 Manually install the following programs:

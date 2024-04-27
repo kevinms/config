@@ -10,12 +10,12 @@ git clone git@github.com:kevinms/config.git
 Install applications for a fresh Kubuntu image (Ubuntu/Debian derivative):
 
 ```sh
-./config/install.sh
+./install-deskop.sh
 # Refer to notes-kubuntu
 ```
 
 Setup terminal / editor config:
 
 ```sh
-./config/setup.sh
+./setup.sh
 ```

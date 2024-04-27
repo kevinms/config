@@ -37,6 +37,7 @@ Plug 'posva/vim-vue'
 Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 Plug 'habamax/vim-godot'
+Plug 'chaimleib/vim-renpy'
 
 " Requires:
 "   go

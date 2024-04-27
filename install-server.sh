@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-#TODO: Must run as root
+# Must run as root
 if ! [ "${EUID:-$(id -u)}" -eq 0 ]; then
 	echo "ERROR: root privileges are needed to run this script"
 	exit 1
@@ -32,7 +32,6 @@ if ! which docker; then
 	rm -f get-docker.sh
 	usermod -aG docker kevin
 fi
-apt install -y docker-compose
 
 # Go
 export PATH=$PATH:/usr/local/go/bin
@@ -48,8 +47,9 @@ fi
 
 # NodeJS
 if ! which node; then
-	curl -sL install-node.now.sh/lts > nodejs-lts.sh
-	bash nodejs-lts.sh -y
-	rm -f nodejs-lts.sh
+	curl https://get.volta.sh | bash
+	export VOLTA_HOME="$HOME/.volta"
+	export PATH="$VOLTA_HOME/bin:$PATH"
+	volta install node
 fi
 
