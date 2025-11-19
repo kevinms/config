@@ -38,6 +38,7 @@ Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 Plug 'habamax/vim-godot'
 Plug 'chaimleib/vim-renpy'
+Plug 'jparise/vim-graphql'
 
 " Requires:
 "   go
@@ -484,6 +485,8 @@ set updatetime=300
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved
 set signcolumn=number
+
+set pumheight=10
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
