@@ -12,18 +12,11 @@ set -x
 
 apt update -y
 apt upgrade -y
-
-# Critical
-apt install -y vim git tmux
-
-# Build tools
-apt install -y build-essential clangd
-
-# Basic utilities
-apt install -y zip unzip wget curl jq
-
-# Disk utilities
-apt install -y smartmontools sysstat
+apt install -y \
+	vim git tmux \
+	build-essential clangd \
+	zip unzip wget curl jq tree \
+	smartmontools sysstat
 
 # Docker
 if ! which docker; then
@@ -34,22 +27,15 @@ if ! which docker; then
 fi
 
 # Go
-export PATH=$PATH:/usr/local/go/bin
 if ! which go; then
-	version=$(curl https://go.dev/VERSION?m=text)
+	version=$(curl https://go.dev/VERSION?m=text | head -1)
 	wget https://go.dev/dl/$version.linux-amd64.tar.gz
 	rm -rf /usr/local/go && tar -C /usr/local -xzf $version.linux-amd64.tar.gz
 	rm -f $version.linux-amd64.tar.gz
-	# The PATH should already or will be set correctly in .profile or .bashrc
-	#export PATH=$PATH:/usr/local/go/bin
-	#export PATH=$PATH:~/go/bin
 fi
 
-# NodeJS
-if ! which node; then
-	curl https://get.volta.sh | bash
-	export VOLTA_HOME="$HOME/.volta"
-	export PATH="$VOLTA_HOME/bin:$PATH"
-	volta install node
-fi
+YELLOW='\e[1;33m'
+RESET='\e[0m'
+printf "\n${YELLOW}Completed server install.${RESET}\n"
 
+sudo -i -u kevin $PWD/install-server-user.sh

@@ -26,6 +26,7 @@ Plug 'farmergreg/vim-lastplace' " Intelligently reopen files at your last edit p
 Plug 'junegunn/vim-slash'       " Improve search highlighting
 Plug 'junegunn/goyo.vim'        " Distraction-free writing
 Plug 'junegunn/limelight.vim'   " Hyperfocus-writing
+Plug 'reedes/vim-wordy'         " Weasel words and passive voice
 Plug 'tomtom/tcomment_vim'      " Easily add/remove comments
 Plug 'morhetz/gruvbox'          " The best colorscheme
 
@@ -292,6 +293,7 @@ function! s:goyo_enter()
   set t_Co=256
   Limelight
   set wrap linebreak nolist
+  let b:coc_suggest_disable = 1 " disable autocomplete floating window suggestions -- too distracting
 endfunction
 
 function! s:goyo_leave()
@@ -357,6 +359,8 @@ let g:terraform_fmt_on_save=1
 
 "let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " Write file with super user permissions
 "command! SudoWrite w !sudo tee > /dev/null %
