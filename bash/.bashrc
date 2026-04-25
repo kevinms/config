@@ -53,3 +53,10 @@ export PATH=$PATH:~/bin
 # export GTK_IM_MODULE=ibus
 # export QT_IM_MODULE=ibus
 # export XMODIFIERS=@im=ibus
+
+# export ANDROID_HOME=$HOME/Android/Sdk
+# export PATH=$PATH:$ANDROID_HOME/emulator
+# export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+alias volume_down='qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "decrease_volume"'
+alias volume_up='qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "increase_volume"'

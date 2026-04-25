@@ -29,15 +29,14 @@ apt install -y virtualbox qemu-system qemu-kvm virt-manager
 apt install -y openssh-server ansible remmina
 
 # VPN plugins
-apt install -y network-manager-openconnect network-manager-l2tp
-if ! which nordvpn; then
-	wget -qnc https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
-	dpkg -i nordvpn-release_1.0.0_all.deb
-	rm nordvpn-release_1.0.0_all.deb
-	apt update -y
-	apt install -y nordvpn
-	usermod -aG nordvpn kevin
-fi
+#if ! which nordvpn; then
+#	wget -qnc https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
+#	dpkg -i nordvpn-release_1.0.0_all.deb
+#	rm nordvpn-release_1.0.0_all.deb
+#	apt update -y
+#	apt install -y nordvpn
+#	usermod -aG nordvpn kevin
+#fi
 
 # Disk utilities
 apt install -y smartmontools sysstat
@@ -106,7 +105,7 @@ fi
 snap install codium --classic
 
 # Game Dev
-snap install blender --classic
+#snap install blender --classic
 
 #TODO: ibus / anthy
 # apt install -y ibus ibus-anthy

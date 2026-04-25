@@ -29,6 +29,7 @@ Plug 'junegunn/limelight.vim'   " Hyperfocus-writing
 Plug 'reedes/vim-wordy'         " Weasel words and passive voice
 Plug 'tomtom/tcomment_vim'      " Easily add/remove comments
 Plug 'morhetz/gruvbox'          " The best colorscheme
+Plug 'preservim/nerdtree'
 
 " Language plugins:
 Plug 'arrufat/vala.vim'
@@ -294,6 +295,7 @@ function! s:goyo_enter()
   Limelight
   set wrap linebreak nolist
   let b:coc_suggest_disable = 1 " disable autocomplete floating window suggestions -- too distracting
+  set pumheight=0
 endfunction
 
 function! s:goyo_leave()
@@ -304,6 +306,7 @@ function! s:goyo_leave()
   set scrolloff=5
   Limelight!
   set t_Co=8
+  set pumheight=10
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -352,6 +355,25 @@ let g:AutoPairsCenterLine = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:terraform_fmt_on_save=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => surround.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd FileType markdown let b:surround_{char2nr("e")} = "**\r**"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => nerdtree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <leader>n :NERDTreeToggle<CR>
+" nnoremap <leader>n :NERDTreeFocus<CR>
+" nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+" nnoremap <C-f> :NERDTreeFind<CR>
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc Settings

@@ -19,7 +19,10 @@ System Settings -> Application Style -> Configure GNOME/GTK Application Style
 
 # Make sure new windows take focus
 System Settings -> Window Behavior -> Focus stealing prevention -> None
-System Settings -> Window Behavior -> Window Actions -> Left Click: Activate, raise and move
+System Settings -> Window Behavior -> Window Actions -> Inner Window, Titlebar and Frame Actions -> Left Click: Activate, raise and move
+
+# Make lock screen less ugly
+System Settings -> Workspace Behavior -> Screen Locking -> Appearance -> disable everything
 
 # Faster effect animation speed:
 System Settings -> Workspace Behavior -> General Behavior -> Animation speed -> faster
