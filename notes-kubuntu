@@ -1,12 +1,20 @@
 Adjust theme to Breeze Dark
 
 ssh-keygen
+ssh-keygen -q -t ed25519 -N '' -f ~/.ssh/id_ed25519
 
 ./install.sh
 ./setup.sh
 
 Configure KRunner to do only basic things
 Configure Tilix
+
+# Set default editor to vim
+sudo update-alternatives --config editor
+
+# Disable sudo password feedback:
+sudo visudo -f /etc/sudoers.d/01-disable-pwfeedback
+Defaults !pwfeedback
 
 # qemu guest additions
 Must log out for group changes to take affect.
@@ -16,6 +24,9 @@ https://www.spice-space.org/download.html#guest
 
 # Set GTK them to breeze dark
 System Settings -> Application Style -> Configure GNOME/GTK Application Style
+
+# Decrease key repeat delay
+System Settings -> Keyboard -> Key Repeat -> Delay 200 ms, Repeat 25 /s
 
 # Make sure new windows take focus
 System Settings -> Window Behavior -> Focus stealing prevention -> None
@@ -51,8 +62,6 @@ Hotkeys:
 Clipboard configuration:
 	Save history across desktop sessions: off
 	History Size: 1
-
-Configure static IP address
 
 Wake-on-LAN:
     nmcli con show

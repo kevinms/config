@@ -60,3 +60,5 @@ export PATH=$PATH:~/bin
 
 alias volume_down='qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "decrease_volume"'
 alias volume_up='qdbus org.kde.kglobalaccel /component/kmix invokeShortcut "increase_volume"'
+
+export SSH_ASKPASS_REQUIRE=never
