@@ -15,13 +15,15 @@ if ! which node; then
 fi
 
 # Godot
-downloadLink=$(curl -s https://api.github.com/repos/godotengine/godot/releases/latest \
-	| jq -r '.assets[] | select(.browser_download_url | contains("linux.x86_64")).browser_download_url')
-archiveName=${downloadLink##*/}
-binaryName="${archiveName%.*}"
-if ! which $binaryName; then
-	wget $downloadLink
-	unzip $archiveName -d ~/bin/
+if ! which godot; then
+	downloadLink=$(curl -s https://api.github.com/repos/godotengine/godot/releases/latest \
+		| jq -r '.assets[] | select(.browser_download_url | contains("linux.x86_64")).browser_download_url')
+	archiveName=${downloadLink##*/}
+	binaryName="${archiveName%.*}"
+	wget -O /tmp/godot.zip $downloadLink
+	unzip /tmp/godot.zip -d ~/bin/
+	rm /tmp/godot.zip
+	ln -sf ~/bin/$binaryName ~/bin/godot
 	rm $archiveName
 fi
 

@@ -13,42 +13,44 @@ set -x
 apt update -y
 apt upgrade -y
 
-# Critical
-apt install -y vim git tmux tilix
+packages=(
+	# Essential
+	vim git tmux tilix
 
-# Build tools
-apt install -y build-essential clangd
+	# Basic utilities
+	zip unzip wget curl jq yq tree ncdu gedit
 
-# Basic utilities
-apt install -y zip unzip gedit wget curl jq
+	# Build tools
+	build-essential clangd
 
-# Virtualization
-apt install -y virtualbox qemu-system qemu-kvm virt-manager
+	# Virtualization
+	# virtualbox qemu-system qemu-kvm virt-manager
 
-# Remote management
-apt install -y openssh-server ansible remmina
+	# Remote management
+	# openssh-server ansible remmina
+	remmina
 
-# VPN plugins
-#if ! which nordvpn; then
-#	wget -qnc https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
-#	dpkg -i nordvpn-release_1.0.0_all.deb
-#	rm nordvpn-release_1.0.0_all.deb
-#	apt update -y
-#	apt install -y nordvpn
-#	usermod -aG nordvpn kevin
-#fi
+	# Disk utilities
+	smartmontools sysstat
 
-# Disk utilities
-apt install -y smartmontools sysstat
+	# Graphics and audio
+	gimp inkscape krita audacity kcolorchooser
 
-# Graphics and audio
-apt install -y gimp inkscape krita audacity kcolorchooser
+	# LaTex editor
+	gummi
 
-# LaTex editor
-apt install -y gummi
+	# Screen capture and recording
+	peek
+)
+
+apt install -y "${packages[@]}"
+
+# VPN
+if ! which nordvpn; then
+	sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
+fi
 
 # Screen capture and recording
-apt install -y peek
 #if ! which obs; then
 #	apt install -y ffmpeg
 #	apt install -y v4l2loopback-dkms
@@ -68,25 +70,23 @@ if ! which steam; then
 fi
 
 # Messaging
-apt install -y pidgin pidgin-otr
+#apt install -y pidgin pidgin-otr
 if ! which discord; then
-	wget -O discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
-	apt install -y ./discord.deb
-	rm -f discord.deb
+	wget -O /tmp/discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
+	apt install -y /tmp/discord.deb
+	rm -f /tmp/discord.deb
 fi
 
-# keepassxc
 if ! which keepassxc; then
 	add-apt-repository -y ppa:phoerious/keepassxc
 	apt install -y keepassxc
 fi
 
-# Docker
 if ! which docker; then
 	curl -fsSL https://get.docker.com -o get-docker.sh
 	sh get-docker.sh
 	rm -f get-docker.sh
-	usermod -aG docker kevin
+	#usermod -aG docker kevin
 fi
 
 # Go
@@ -128,7 +128,7 @@ fi
 
 # Run install commands that must be done as non-root user:
 scriptDir=$(realpath $(dirname "$0"))
-sudo -u kevin $scriptDir/install-user.sh
+sudo -u kevin $scriptDir/install-desktop-user.sh
 
 cat <<EoF
 Manually install the following programs:
